@@ -8,8 +8,7 @@ export class InputHandler{
         }
         console.log(this.keys)
         window.addEventListener('keydown', event => {
-            console.log(this.keys,event.code)
-    
+                
             if(event.code == "KeyA"){this.keys.a = true}
             if(event.code == "KeyD"){this.keys.d = true}
             if(event.code == "KeyW"){this.keys.w = true}

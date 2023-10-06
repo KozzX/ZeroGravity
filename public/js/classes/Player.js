@@ -1,35 +1,53 @@
 export class Player {
     constructor(game){
-        this.image = ship
-        this.width = 128
-        this.height = 128
-        this.x = game.width / 2 - this.width / 2
-        this.y = game.height / 2 - this.height / 2
-        this.angle = 0
+        this.image = {ship:ship,prop1:prop01,prop2:prop02}
+        this.width = 64
+        this.height = 64
+        this.x = 0//game.width / 2 
+        this.y = 0//game.height / 2
+        this.angle = 90
         this.speed = 0
         this.angleSpeed = 0
         this.forces = []
-        for(var i = 0; i < 360; i++){
-            this.forces[i] = {a:0,s:0}
-        }
+        
         this.camera = game.camera
+        for(var i = 0; i < 360; i++){
+            this.forces[i] = {a:i,s:0}
+        }
     }
     update = (input) => {
-        if(input.w){
-            //this.y = this.y - 5
-            this.speed -= 0.001
-            this.forces[Math.floor(this.angle)] = {a:Math.floor(this.angle),s:this.speed + this.forces[Math.floor(this.angle)].s}
         
+        this.angle = this.angle + this.angleSpeed
+
+        if(this.angle >= 360){
+            this.angle = 1
+        }
+        if(this.angle <= 0){
+            this.angle = 359
+        }
+        
+        if(input.w){
+            this.speed -= 0.02
+            this.forces[Math.floor(this.angle)] = {a:Math.floor(this.angle),s:this.speed + this.forces[Math.floor(this.angle)].s}
         }
         if(input.s){
-            this.speed += 0.001
+            this.speed += 0.01
             this.forces[Math.floor(this.angle)] = {a:Math.floor(this.angle),s:this.speed + this.forces[Math.floor(this.angle)].s}
         }
-        if(input.a){this.x = this.x - 5}
-        if(input.d){this.x = this.x + 5}
+        if(input.a){
+            this.angleSpeed = this.angleSpeed - 0.05
+        }
+        if(input.d){
+            this.angleSpeed = this.angleSpeed + 0.05
+        }
 
-        //this.camera.x = this.x - (this.camera.width)
-        //this.camera.y = this.y - (this.camera.height)
+        this.camera.x = this.x - (this.camera.width)
+        this.camera.y = this.y - (this.camera.height)
+        //this.angle++
+
+        
+        if(this.speed > 0){this.speed -= 0.01}
+        if(this.speed < 0){this.speed += 0.02}
 
         console.log(this.x, this.y,this.camera.x, this.camera.y)
 
@@ -39,15 +57,44 @@ export class Player {
         }
     }
 
-    draw(c){
-        //this.angle++
+    draw(c,keys){
+        
         
         //rotação nave
         c.save()
         c.beginPath()
         c.translate(this.camera.width / 2,this.camera.height / 2)
         c.rotate(this.angle * Math.PI / 180)
-        c.drawImage(this.image, -this.width / 2, -this.height / 2)
+        if(keys.w){
+            //baixo
+            c.drawImage(this.image.prop1,-this.width / 2 + this.width/2, -this.height / 2)
+        }
+        if(keys.s){
+            //cima
+            c.drawImage(this.image.prop1,-this.width / 2 - this.width/2, -this.height / 2)
+        }
+        
+        //c.drawImage(this.image.prop2, -this.width / 2  - this.width/4, -this.height / 2 - this.height / 3)
+
+        if(keys.a){
+            //direita topo
+            c.drawImage(this.image.prop2,-this.width / 2  - this.width/4, -this.height / 2 - this.height / 3)
+            //esquerda baixo
+            c.drawImage(this.image.prop2,-this.width / 2  + this.width/4, -this.height / 2 + this.height / 2)
+
+        }
+        if(keys.d){
+            //esquerda topo
+            c.drawImage(this.image.prop2,-this.width / 2  - this.width/4, -this.height / 2 + this.height / 3)
+             //direita baixo
+            c.drawImage(this.image.prop2,-this.width / 2  + this.width/4, -this.height / 2 - this.height / 2)
+        }
+
+        
+        //nave
+        c.drawImage(this.image.ship, -this.width / 2, -this.height / 2)
+        
+        
         c.restore()
         
         
