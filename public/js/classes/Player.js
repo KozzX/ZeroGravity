@@ -1,11 +1,11 @@
 export class Player {
     constructor(game){
-        this.image = {ship:ship,prop1:prop01,prop2:prop02,anim1:anim1}
+        this.image = {ship:ship,propV:propVertical,propH:propHorizontal}
         this.width = 64
         this.height = 64
         this.x = 1000//game.width / 2 
         this.y = 1000//game.height / 2
-        this.angle = 90
+        this.angle = 0
         this.speed = 0
         this.angleSpeed = 0
         this.forces = []
@@ -63,7 +63,7 @@ export class Player {
         if ((this.gameFrame%1) == 0){
             this.frameX++
         }
-        if(this.frameX > 4){
+        if(this.frameX > 5){
             this.frameX = 0
         }
         
@@ -74,29 +74,27 @@ export class Player {
         c.rotate(this.angle * Math.PI / 180)
         if(keys.w){
             //baixo
-            c.drawImage(this.image.prop1,this.frameX*64,0,64, 64,-this.width / 2 + this.width/2, -this.height / 2,64,64)
+            c.drawImage(this.image.propV,this.frameX*64,0,64, 64,-this.width / 2 + this.width/2, -this.height / 2,64,64)
         }
         if(keys.s){
             //cima
-            c.drawImage(this.image.prop1,this.frameX*64,0,64, 64,-this.width / 2 - this.width/2, -this.height / 2,64,64)
+            c.drawImage(this.image.propV,this.frameX*64,0,64, 64,-this.width / 2 - this.width/2, -this.height / 2,64,64)
         }
         console.log(-this.width / 2  + this.width/4, -this.height / 2 + this.height / 2)
-        //c.drawImage(this.image.anim1,this.frameX*64,0,64, 64,-this.width / 2  + this.width/4,-this.height / 2 + this.height / 2,64, 64)
-        //c.drawImage(this.image.anim1,this.image.anim1,this.frameX*64,0,64, 64,0, -this.height / 2 - this.height / 3,64,64)
-        //c.drawImage(this.image.prop2, -this.width / 2  - this.width/4, -this.height / 2 - this.height / 3)
+
 
         if(keys.a){
             //direita topo
-            c.drawImage(this.image.anim1,this.frameX*64,0,64, 64,-this.width / 2  - this.width/4, -this.height / 2 - this.height / 3,64,64)
+            c.drawImage(this.image.propH,this.frameX*64,0,64, 64,-this.width / 2  - this.width/4, -this.height / 2 - this.height / 3,64,64)
             //esquerda baixo
-            c.drawImage(this.image.anim1,this.frameX*64,0,64, 64,-this.width / 2  + this.width/4,-this.height / 2 + this.height / 2,64, 64)
+            c.drawImage(this.image.propH,this.frameX*64,0,64, 64,-this.width / 2  + this.width/4,-this.height / 2 + this.height / 2,64, 64)
 
         }
         if(keys.d){
             //esquerda topo
-            c.drawImage(this.image.prop2,this.frameX*64,0,64, 64,-this.width / 2  - this.width/4, -this.height / 2 + this.height / 3,64,64)
+            c.drawImage(this.image.propH,this.frameX*64,0,64, 64,-this.width / 2  - this.width/4, -this.height / 2 + this.height / 3,64,64)
              //direita baixo
-            c.drawImage(this.image.prop2,this.frameX*64,0,64, 64,-this.width / 2  + this.width/4, -this.height / 2 - this.height / 2,64,64)
+            c.drawImage(this.image.propH,this.frameX*64,0,64, 64,-this.width / 2  + this.width/4, -this.height / 2 - this.height / 2,64,64)
         }
 
         
