@@ -26,20 +26,35 @@ export class Player {
         if(this.angle <= 0){
             this.angle = 359
         }
-        
+        soundProp1.volume = 0.1
+        soundProp2.volume = 0.1
         if(input.w){
             this.speed -= 0.02
             this.forces[Math.floor(this.angle)] = {a:Math.floor(this.angle),s:this.speed + this.forces[Math.floor(this.angle)].s}
+            
+            soundProp1.play()
         }
         if(input.s){
             this.speed += 0.01
             this.forces[Math.floor(this.angle)] = {a:Math.floor(this.angle),s:this.speed + this.forces[Math.floor(this.angle)].s}
+            soundProp1.play()
         }
         if(input.a){
             this.angleSpeed = this.angleSpeed - 0.05
+            soundProp1.play()
+            soundProp2.play()
         }
         if(input.d){
             this.angleSpeed = this.angleSpeed + 0.05
+            soundProp1.play()
+            soundProp2.play()
+        }
+        if((!input.w) && (!input.s) && (!input.a) && (!input.d)){
+            soundProp1.pause()
+            
+        }
+        if((!input.a) && (!input.d)){
+            soundProp2.pause()
         }
 
         this.camera.x = this.x - (this.camera.width)
@@ -50,7 +65,7 @@ export class Player {
         if(this.speed > 0){this.speed -= 0.01}
         if(this.speed < 0){this.speed += 0.02}
 
-        console.log(this.x, this.y,this.camera.x, this.camera.y)
+        //console.log(this.x, this.y,this.camera.x, this.camera.y)
 
         for(var i = 0; i < this.forces.length; i++){
             this.x = this.x + Math.cos((this.forces[i].a * Math.PI / 180)) * this.forces[i].s
@@ -80,7 +95,7 @@ export class Player {
             //cima
             c.drawImage(this.image.propV,this.frameX*64,0,64, 64,-this.width / 2 - this.width/2, -this.height / 2,64,64)
         }
-        console.log(-this.width / 2  + this.width/4, -this.height / 2 + this.height / 2)
+        
 
 
         if(keys.a){

@@ -19,7 +19,7 @@ window.addEventListener("load", function(){
             this.player = new Player(this)
             this.input = new InputHandler()
             this.stars = []
-            for(var i = 0; i < 20000; i++){
+            for(var i = 0; i < 10000; i++){
                 this.stars.push(new Star(Math.random() * 20000, Math.random() * 10000,1,"white", 0))
             }
             this.hud = new Hud(this)
