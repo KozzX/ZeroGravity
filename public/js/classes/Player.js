@@ -3,8 +3,8 @@ export class Player {
         this.image = {ship:ship,propV:propVertical,propH:propHorizontal}
         this.width = 64
         this.height = 64
-        this.x = 1000//game.width / 2 
-        this.y = 1000//game.height / 2
+        this.x = 10000//game.width / 2 
+        this.y = 10000//game.height / 2
         this.angle = 0
         this.speed = 0
         this.angleSpeed = 0
